@@ -1,0 +1,33 @@
+apiVersion: v1
+entries:
+  jupyterlab:
+    appVersion: 1.0
+    name: jupyterlab
+    created: "2021-02-17T11:19:29.533942578+0000"
+    description: JupyterLab container
+    help: |
+      This container provides an instance of JupyterLab Python IDE connected to
+      the TDM Edge Internal Bus.
+      In order to access the IDE a password must be set issuing the
+      following commands from the Edge Gateway shell:
+      # docker-compose run --rm jupyterlab password
+      # docker-compose restart jupyterlab
+
+      The IDE will be available by means of a web browser to the port 8888 of
+      the Edge Gateway:
+        http://tdm-edge-wwxxyyzz.local:8888/
+
+      For more information please refer to the README.
+    compose:
+      services: |
+        image: tdmproject/edge-jupyterlab
+        container_name: tdm_jupyterlab
+        ports:
+          - "8888:8888"
+        networks:
+          - tdm_edge
+        volumes:
+          - jupyterlab-storage:/home/jupyter
+        restart: always
+      volumes: |
+        jupyterlab-storage:
